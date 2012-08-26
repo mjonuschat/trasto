@@ -1,0 +1,7 @@
+de:
+  attributes:
+    title: "Titel"
+  i18n:
+    languages:
+      en: "English"
+      de: "Deutsch"
