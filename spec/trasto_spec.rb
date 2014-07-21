@@ -62,20 +62,20 @@ describe Post, "#title" do
   end
 
   it "should fall back to the default locale if blank" do
-    post.title_i18n[:en] = " "
+    post.title_i18n["en"] = " "
     post.title.should == "Hallo"
   end
 
   it "should fall back to any other locale if default locale is blank" do
-    post.title_i18n[:en] = " "
-    post.title_i18n[:de] = ""
+    post.title_i18n["en"] = " "
+    post.title_i18n["de"] = ""
     post.title.should == "Hej"
   end
 
   it "should return nil if all are blank" do
-    post.title_i18n[:en] = " "
-    post.title_i18n[:de] = ""
-    post.title_i18n[:sv] = nil
+    post.title_i18n["en"] = " "
+    post.title_i18n["de"] = ""
+    post.title_i18n["sv"] = nil
     post.title.should be_nil
   end
 
@@ -93,7 +93,7 @@ describe Post, "#title=" do
   it "should assign in the current locale" do
     post.title = "Hallo"
     post.title.should == "Hallo"
-    post.title_i18n[:de].should == "Hallo"
+    post.title_i18n["de"].should == "Hallo"
   end
 
 end
