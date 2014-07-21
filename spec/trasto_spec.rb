@@ -50,6 +50,8 @@ describe Post, "#title" do
     Post.translates :title
     I18n.locale = :en
     I18n.default_locale = :de
+
+    post.title_i18n = post.title_i18n.with_indifferent_access
   end
 
   it "should give the title in the current locale" do
