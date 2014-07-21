@@ -15,6 +15,7 @@ require "active_record"
 require "activerecord-postgres-hstore"
 require "activerecord-postgres-hstore/activerecord"
 require "app/post.rb"
+require "pry"
 
 ActiveRecord::Base.establish_connection :adapter => "postgresql", :database => "trasto-test"
 
