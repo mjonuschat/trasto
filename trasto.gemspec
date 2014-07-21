@@ -18,7 +18,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency              "pg",                           "~> 0.10"
-  gem.add_dependency              "activerecord-postgres-hstore", ">= 0.4.0"
 
   gem.add_development_dependency  "rake",                         "~> 0.9.2"
   gem.add_development_dependency  "rspec",                        "~> 2.11.0"

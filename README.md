@@ -47,7 +47,11 @@ Add this to your `Gemfile` if you use Bundler 1.1+:
 
     gem 'traco'
 
-Then run
+If you're using Rails 3, add the following gem:
+
+    gem 'activerecord-postgres-hstore'
+
+Hstore support comes out of the box in Rails 4. Then run
 
     bundle install
 

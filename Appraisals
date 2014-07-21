@@ -1,5 +1,6 @@
 appraise "3.2" do
   gem "activerecord", "~> 3.2.19"
+  gem "activerecord-postgres-hstore"
 end
 
 appraise "4.0" do
