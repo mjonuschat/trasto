@@ -4,8 +4,10 @@ module Trasto
     private
 
     def read_localized_value(column)
+      return nil unless column_value = send("#{column}_i18n")
+
       locales_for_reading_column(column).each do |locale|
-        value = send("#{column}_i18n")[locale]
+        value = column_value[locale]
         return value if value.present?
       end
       nil

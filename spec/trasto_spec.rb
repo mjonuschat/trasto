@@ -81,6 +81,10 @@ describe Post, "#title" do
     post.title.should be_nil
   end
 
+  it "should return nil on a blank record" do
+    post.title_i18n = nil
+    post.title.should be_nil
+  end
 end
 
 describe Post, "#title=" do
