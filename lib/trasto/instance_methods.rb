@@ -13,7 +13,7 @@ module Trasto
 
     def write_localized_value(column, value)
       translations = send("#{column}_i18n") || {}
-      send("#{column}_i18n=", translations.merge({I18n.locale => value}))
+      send("#{column}_i18n=", translations.merge({I18n.locale => value}).with_indifferent_access)
     end
 
     def locales_for_reading_column(column)
