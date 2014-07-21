@@ -12,8 +12,12 @@ end
 # https://github.com/iain/translatable_columns/
 
 require "active_record"
-require "activerecord-postgres-hstore"
-require "activerecord-postgres-hstore/activerecord"
+
+if ActiveRecord::VERSION::MAJOR == 3
+  require "activerecord-postgres-hstore"
+  require "activerecord-postgres-hstore/activerecord"
+end
+
 require "app/post.rb"
 require "pry"
 
