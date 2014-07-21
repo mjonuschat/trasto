@@ -16,7 +16,8 @@ require "activerecord-postgres-hstore"
 require "activerecord-postgres-hstore/activerecord"
 require "app/post.rb"
 
-ActiveRecord::Base.establish_connection :adapter => "postgresql", :database => "test"
+ActiveRecord::Base.establish_connection :adapter => "postgresql", :database => "trasto-test"
+
 
 silence_stream(STDOUT) do
   ActiveRecord::Schema.define(:version => 0) do
