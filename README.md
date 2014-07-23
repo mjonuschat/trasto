@@ -45,7 +45,7 @@ You can still use your accessors for `title_i18n` and `title_i18=` in forms, val
 
 Add this to your `Gemfile` if you use Bundler 1.1+:
 
-    gem 'traco'
+    gem 'trasto'
 
 If you're using Rails 3, add the following gem:
 
