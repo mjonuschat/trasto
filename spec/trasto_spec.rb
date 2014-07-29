@@ -4,28 +4,28 @@ require 'trasto'
 describe ActiveRecord::Base, '.translates' do
 
   it 'should be available' do
-    Post.should respond_to :translates
+    expect(Post).to respond_to :translates
   end
 
   it 'should add functionality' do
-    Post.new.should_not respond_to :title
+    expect(Post.new).not_to respond_to :title
     Post.translates :title
-    Post.new.should respond_to :title
+    expect(Post.new).to respond_to :title
   end
 
   it 'should be possible to run more than once' do
-    Post.new.should_not respond_to :title, :body
+    expect(Post.new).not_to respond_to :title, :body
     Post.translates :title
     Post.translates :body
-    Post.new.should respond_to :title, :body
+    expect(Post.new).to respond_to :title, :body
   end
 
   it 'inherits columns from the superclass' do
     Post.translates :title
     SubPost.translates :body
-    SubPost.new.should respond_to :title, :body
-    Post.new.should respond_to :title
-    Post.new.should_not respond_to :body
+    expect(SubPost.new).to respond_to :title, :body
+    expect(Post.new).to respond_to :title
+    expect(Post.new).not_to respond_to :body
   end
 
 end
@@ -37,7 +37,7 @@ describe Post, '.translatable_columns' do
   end
 
   it 'should list the translatable columns' do
-    Post.translatable_columns.should == [:title]
+    expect(Post.translatable_columns).to eq([:title])
   end
 
 end
@@ -55,35 +55,35 @@ describe Post, '#title' do
   end
 
   it 'should give the title in the current locale' do
-    post.title.should == 'Hello'
+    expect(post.title).to eq('Hello')
   end
 
   it 'should fall back to the default locale if locale has entry' do
     I18n.locale = :ru
-    post.title.should == 'Hallo'
+    expect(post.title).to eq('Hallo')
   end
 
   it 'should fall back to the default locale if blank' do
     post.title_i18n['en'] = ' '
-    post.title.should == 'Hallo'
+    expect(post.title).to eq('Hallo')
   end
 
   it 'should fall back to any other locale if default locale is blank' do
     post.title_i18n['en'] = ' '
     post.title_i18n['de'] = ''
-    post.title.should == 'Hej'
+    expect(post.title).to eq('Hej')
   end
 
   it 'should return nil if all are blank' do
     post.title_i18n['en'] = ' '
     post.title_i18n['de'] = ''
     post.title_i18n['sv'] = nil
-    post.title.should be_nil
+    expect(post.title).to be_nil
   end
 
   it 'should return nil on a blank record' do
     post.title_i18n = nil
-    post.title.should be_nil
+    expect(post.title).to be_nil
   end
 end
 
@@ -98,8 +98,8 @@ describe Post, '#title=' do
 
   it 'should assign in the current locale' do
     post.title = 'Hallo'
-    post.title.should == 'Hallo'
-    post.title_i18n['de'].should == 'Hallo'
+    expect(post.title).to eq('Hallo')
+    expect(post.title_i18n['de']).to eq('Hallo')
   end
 
 end
