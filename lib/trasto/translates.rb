@@ -1,7 +1,6 @@
 module Trasto
   module Translates
     def translates(*columns)
-
       extend Trasto::ClassMethods
       include Trasto::InstanceMethods
 
@@ -14,16 +13,18 @@ module Trasto
 
       self.translatable_columns |= columns.map(&:to_sym)
 
-      columns.each do |column|
+      columns.each { |column| define_localized_attribute(column) }
+    end
 
-        define_method(column) do
-          read_localized_value(column)
-        end
+    private
 
-        define_method("#{column}=") do |value|
-          write_localized_value(column, value)
-        end
+    def define_localized_attribute(column)
+      define_method(column) do
+        read_localized_value(column)
+      end
 
+      define_method("#{column}=") do |value|
+        write_localized_value(column, value)
       end
     end
   end

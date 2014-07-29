@@ -11,29 +11,29 @@ end
 # Very much based on the test setup in
 # https://github.com/iain/translatable_columns/
 
-require "active_record"
+require 'active_record'
 
 if ActiveRecord::VERSION::MAJOR == 3
-  require "activerecord-postgres-hstore"
-  require "activerecord-postgres-hstore/activerecord"
+  require 'activerecord-postgres-hstore'
+  require 'activerecord-postgres-hstore/activerecord'
 end
 
-require "app/post.rb"
-require "pry"
+require 'app/post.rb'
+require 'pry'
 
-ActiveRecord::Base.establish_connection :adapter => "postgresql", :database => "trasto-test"
+ActiveRecord::Base.establish_connection adapter: 'postgresql', database: 'trasto-test'
 
 I18n.enforce_available_locales ||= false
 
 silence_stream(STDOUT) do
-  ActiveRecord::Schema.define(:version => 0) do
-    execute "CREATE EXTENSION IF NOT EXISTS hstore"
+  ActiveRecord::Schema.define(version: 0) do
+    execute 'CREATE EXTENSION IF NOT EXISTS hstore'
 
-    create_table :posts, :force => true do |t|
+    create_table :posts, force: true do |t|
       t.hstore :title_i18n
       t.hstore :body_i18n
     end
   end
 end
 
-I18n.load_path << "spec/app/de.yml"
+I18n.load_path << 'spec/app/de.yml'
