@@ -45,9 +45,13 @@ You can still use your accessors for `title_i18n` and `title_i18=` in forms, val
 
 Add this to your `Gemfile` if you use Bundler 1.1+:
 
-    gem 'traco'
+    gem 'trasto'
 
-Then run
+If you're using Rails 3, add the following gem:
+
+    gem 'activerecord-postgres-hstore'
+
+Hstore support comes out of the box in Rails 4. Then run
 
     bundle install
 
@@ -63,7 +67,7 @@ to install it.
 
 By [Morton Jonuschat](https://github.com/yabawock) under the MIT license:
 
->  Copyright (c) 2012 Morton Jonuschat
+>  Copyright (c) 2012-2014 Morton Jonuschat
 >
 >  Permission is hereby granted, free of charge, to any person obtaining a copy
 >  of this software and associated documentation files (the "Software"), to deal

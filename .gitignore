@@ -10,7 +10,7 @@ pickle-email-*.html
 .bundle
 .config
 .yardoc
-Gemfile.lock
+*emfile.lock
 InstalledFiles
 _yardoc
 coverage
