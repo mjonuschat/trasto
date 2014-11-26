@@ -105,3 +105,32 @@ describe Post, '#title=' do
     expect(post.title_i18n['de']).to eq('Hallo')
   end
 end
+
+describe Trasto do
+  before do
+    Post.translates :title
+    I18n.locale = :en
+  end
+
+  let(:post) { Post.new(title_i18n: {en: "Hi", fr: "Bonjour"}) }
+
+  describe ".with_locale" do
+    it "should change the locale temporarily" do
+      Trasto.with_locale(:fr) do
+        expect(post.title).to eq "Bonjour"
+      end
+    end
+  end
+
+  describe ".with_locales" do
+    it "should iterate over locales" do
+      box = []
+
+      Trasto.with_locales(:fr, :en) do
+        box << post.title
+      end
+
+      expect(box).to eq ["Bonjour", "Hi"]
+    end
+  end
+end
