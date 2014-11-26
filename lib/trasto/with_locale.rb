@@ -7,7 +7,7 @@ module Trasto::WithLocale
     Trasto.locale = locale
 
     begin
-      result = yield
+      result = yield(locale)
     ensure
       Trasto.locale = nil
     end

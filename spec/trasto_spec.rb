@@ -132,5 +132,12 @@ describe Trasto do
 
       expect(box).to eq ["Bonjour", "Hi"]
     end
+
+    it "should feed the locale to the block" do
+      Trasto.with_locales(:fr, :en) do |loc|
+        expect(loc).not_to be nil
+        expect(post.title_i18n[loc.to_s]).to eq post.title
+      end
+    end
   end
 end
