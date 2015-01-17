@@ -23,6 +23,13 @@ describe ActiveRecord::Base, '.translates' do
     expect(Post.new).to respond_to :title
     expect(Post.new).not_to respond_to :body
   end
+
+  it "should leave other columns intact" do
+    Post.translates :title
+    post = Post.new(constant: "tau")
+
+    expect(post.constant).to eq "tau"
+  end
 end
 
 describe ActiveRecord::Base, '.translates?' do
@@ -89,6 +96,10 @@ describe Post, '#title' do
     post.title_i18n = nil
     expect(post.title).to be_nil
   end
+
+  it "should generate helper methods" do
+    expect(post.title_en).to eq "Hello"
+  end
 end
 
 describe Post, '#title=' do
@@ -103,5 +114,74 @@ describe Post, '#title=' do
     post.title = 'Hallo'
     expect(post.title).to eq('Hallo')
     expect(post.title_i18n['de']).to eq('Hallo')
+  end
+end
+
+describe Post, "dynamic accessors" do
+  before do
+    Post.translates :title
+    I18n.locale = :en
+  end
+
+  let(:post) do
+    Post.new(title_i18n: {
+      en: "Free breakfast",
+      fr: "Déjeuner gratuit",
+    })
+  end
+
+  it "should respond_to title_en" do
+    expect(post).to respond_to(:title_en)
+  end
+
+  describe "#title_en" do
+    it "should return the localized value" do
+      expect(post.title_en).to eq "Free breakfast"
+      expect(post.title_fr).to eq "Déjeuner gratuit"
+      expect(post.title_es).to be nil
+    end
+
+    it "should define readers when used" do
+      post.title_en
+      expect(post.methods.include?(:title_en)).to be true
+      expect(post.methods.include?(:title_fr)).to be true
+      expect(post.title_en).to eq "Free breakfast"
+      expect(post.title_fr).to eq "Déjeuner gratuit"
+    end
+
+    it "should not define accessors until used" do
+      expect(post.methods.include?(:title_en)).to be false
+      expect(post.methods.include?(:title_fr)).to be false
+    end
+
+    it "should work with an empty field" do
+      post = Post.new
+      expect(post.title_en).to be nil
+    end
+  end
+
+  describe "#title_es=" do
+    it "should write the localized value" do
+      post.title_es = "Desayuno gratis"
+      expect(post.title_i18n["es"]).to eq "Desayuno gratis"
+    end
+
+    it "should define writers when used" do
+      post.title_es = "Desayuno gratis"
+      expect(post.methods.include?(:title_en=)).to be true
+      expect(post.methods.include?(:title_es=)).to be true
+      expect(post.title_es).to eq "Desayuno gratis"
+    end
+
+    it "should not define accessors until used" do
+      expect(post.methods.include?(:title_en=)).to be false
+      expect(post.methods.include?(:title_es=)).to be false
+    end
+
+    it "should work in mass attribute assignment" do
+      newpost = Post.new(title_en: "Great job", title_fr: "Beau travail")
+      expect(newpost.title_en).to eq "Great job"
+      expect(newpost.title_fr).to eq "Beau travail"
+    end
   end
 end
