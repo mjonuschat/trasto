@@ -113,7 +113,7 @@ describe Post, '#title=' do
   it 'should assign in the current locale' do
     post.title = 'Hallo'
     expect(post.title).to eq('Hallo')
-    expect(post.title_i18n['de']).to eq('Hallo')
+    expect(post.title_i18n.with_indifferent_access['de']).to eq('Hallo')
   end
 end
 

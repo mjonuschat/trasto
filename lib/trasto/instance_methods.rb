@@ -50,17 +50,20 @@ module Trasto
     # Finds a suitable translation for column
     def read_localized_value(column)
       return nil unless (column_value = send("#{column}_i18n"))
+      column_value = column_value.with_indifferent_access # Rails < 4.1
 
       locales_for_reading_column(column).each do |locale|
         value = column_value[locale]
         return value if value.present?
       end
+
       nil
     end
 
     # Reads column value in specified locale
     def read_translated_value(column, locale)
       return unless column_value = send("#{column}_i18n")
+      column_value = column_value.with_indifferent_access
       column_value[locale]
     end
 
