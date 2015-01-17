@@ -23,7 +23,7 @@ require 'pry'
 
 ActiveRecord::Base.establish_connection adapter: 'postgresql', database: 'trasto-test'
 
-I18n.enforce_available_locales ||= false
+I18n.enforce_available_locales = false
 
 silence_stream(STDOUT) do
   ActiveRecord::Schema.define(version: 0) do

@@ -30,7 +30,19 @@ describe ActiveRecord::Base, '.translates' do
 
 end
 
-describe Post, '.translatable_columns' do
+describe ActiveRecord::Base, ".translates?" do
+  it "inherits columns from the superclass" do
+    Post.translates :title
+    SubPost.translates :body
+
+    expect(SubPost.translates?(:title)).to be true
+    expect(SubPost.translates?(:body)).to be true
+    expect(Post.translates?(:title)).to be true
+    expect(Post.translates?(:body)).to be false
+  end
+end
+
+describe Post, ".translatable_columns" do
 
   before do
     Post.translates :title
