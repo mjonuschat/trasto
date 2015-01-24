@@ -1,5 +1,10 @@
 module Trasto
   module InstanceMethods
+    def self.included(base)
+      prepend HstoreUpdatePatch if ActiveRecord::VERSION::STRING < "4.2.0"
+      super
+    end
+
     def method_missing(method, *args, &block)
       # Return super only if above can respond without us.
       # If we call super and above cannot respond without us,
@@ -96,6 +101,17 @@ module Trasto
       return nil if ary.empty?
 
       ary if self.class.translates?(ary[0])
+    end
+
+    # Patches an ActiveRecord bug that wouldn't update the hstore when
+    # changed. Affects 4.0, 4.1.
+    #
+    # See https://github.com/rails/rails/issues/6127
+    module HstoreUpdatePatch
+      def write_translated_value(column, locale, value)
+        send("#{column}_i18n_will_change!")
+        super
+      end
     end
   end
 end

@@ -184,4 +184,15 @@ describe Post, "dynamic accessors" do
       expect(newpost.title_fr).to eq "Beau travail"
     end
   end
+
+  describe "#title_fr=" do
+    it "should update existing hstore in AR 4.1" do
+      post.save; post.reload
+
+      post.title_fr = "Nouveau"
+      post.save; post.reload
+
+      expect(post.title_fr).to eq "Nouveau"
+    end
+  end
 end
