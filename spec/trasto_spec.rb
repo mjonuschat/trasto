@@ -100,6 +100,11 @@ describe Post, '#title' do
   it "should generate helper methods" do
     expect(post.title_en).to eq "Hello"
   end
+
+  it "should be able to persist" do
+    post.save; post.reload
+    expect(post.title_i18n['en']).to eq "Hello"
+  end
 end
 
 describe Post, '#title=' do

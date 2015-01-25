@@ -5,6 +5,14 @@ RSpec.configure do |config|
     Object.send(:remove_const, 'SubPost')
     load 'app/post.rb'
   end
+
+  # If you really need a clean run (for eg. Travis)
+  # config.after :suite do
+  #   ActiveRecord::Base.connection.execute <<-eosql
+  #     DROP TABLE posts;
+  #     DROP EXTENSION IF EXISTS hstore CASCADE;
+  #   eosql
+  # end
 end
 
 # Test against real ActiveRecord models.
@@ -23,7 +31,7 @@ I18n.enforce_available_locales = false
 
 silence_stream(STDOUT) do
   ActiveRecord::Schema.define(version: 0) do
-    execute 'CREATE EXTENSION IF NOT EXISTS hstore'
+    enable_extension "hstore"
 
     create_table :posts, force: true do |t|
       t.hstore :title_i18n
