@@ -56,8 +56,8 @@ to install it.
 
 ## Running the tests
 
-    bundle
-    rake
+    bundle exec appraisal install
+    bundle exec appraisal rake
 
 ## Credits and license
 
