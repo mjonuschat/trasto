@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/yabawock/trasto.png)](http://travis-ci.org/yabawock/trasto)
 
-Translatable columns for Rails 3, directly stored in a postgres hstore in the model table.
+Translatable columns for Rails 4, directly stored in a postgres hstore in the model table.
 
 Inspired by Barsoom's [traco](https://github.com/barsoom/traco/).
 
@@ -43,13 +43,9 @@ You can still use your accessors for `title_i18n` and `title_i18=` in forms, val
 
 ## Installation
 
-Add this to your `Gemfile` if you use Bundler 1.1+:
+Add this to your `Gemfile`:
 
     gem 'trasto'
-
-If you're using Rails 3, add the following gem:
-
-    gem 'activerecord-postgres-hstore'
 
 Hstore support comes out of the box in Rails 4. Then run
 
