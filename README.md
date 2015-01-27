@@ -63,7 +63,7 @@ to install it.
 
 By [Morton Jonuschat](https://github.com/yabawock) under the MIT license:
 
->  Copyright (c) 2012-2014 Morton Jonuschat
+>  Copyright (c) 2012-2015 Morton Jonuschat
 >
 >  Permission is hereby granted, free of charge, to any person obtaining a copy
 >  of this software and associated documentation files (the "Software"), to deal
