@@ -14,24 +14,28 @@ Say you want `Post#title` and `Post#body` to support both English and Swedish va
 
 Write a migration to get hstore database columns with i18n suffixes, e.g. `title_i18n` and `body_i18n`, like:
 
-    class CreatePosts < ActiveRecord::Migration
-      def change
-        create_table :posts do |t|
-          t.hstore :title_i18n
-          t.hstore :body_i18n
+```ruby
+class CreatePosts < ActiveRecord::Migration
+  def change
+    create_table :posts do |t|
+      t.hstore :title_i18n
+      t.hstore :body_i18n
 
-          t.timestamps
-        end
-      end
+      t.timestamps
     end
+  end
+end
+```
 
 Don't create `title` or `body` columns without the `_i18n` suffix, Trasto will define a method with that name.
 
 Declare these columns in the model:
 
-    class Post < ActiveRecord::Base
-      translates :title, :body
-    end
+```ruby
+class Post < ActiveRecord::Base
+  translates :title, :body
+end
+```
 
 You can still use your accessors for `title_i18n` and `title_i18=` in forms, validations and other code, but you also get:
 
@@ -45,7 +49,9 @@ You can still use your accessors for `title_i18n` and `title_i18=` in forms, val
 
 Add this to your `Gemfile`:
 
-    gem 'trasto'
+```ruby
+  gem 'trasto'
+```
 
 Hstore support comes out of the box in Rails 4. Then run
 
@@ -56,8 +62,10 @@ to install it.
 
 ## Running the tests
 
+```
     bundle exec appraisal install
     bundle exec appraisal rake
+```
 
 ## Credits and license
 
