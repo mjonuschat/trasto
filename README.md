@@ -53,12 +53,15 @@ Add this to your `Gemfile`:
   gem 'trasto'
 ```
 
-Hstore support comes out of the box in Rails 4. Then run
+You might need to enable the hstore extension for your database. Create a migration containing the necessary instruction:
 
-    bundle install
-
-to install it.
-
+```ruby
+class EnableHstore < ActiveRecord::Migration
+  def change
+    enable_extension 'hstore'
+  end
+end
+```
 
 ## Running the tests
 
