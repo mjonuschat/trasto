@@ -12,6 +12,7 @@ end
 # https://github.com/iain/translatable_columns/
 
 require 'active_record'
+require 'trasto'
 
 require 'app/post.rb'
 require 'pry'

@@ -1,6 +1,3 @@
-require 'spec_helper'
-require 'trasto'
-
 describe ActiveRecord::Base, '.translates' do
   it 'should be available' do
     expect(Post).to respond_to :translates
