@@ -70,6 +70,12 @@ end
     bundle exec appraisal rake
 ```
 
+To run only one appraisal/gemfile:
+
+```
+bundle exec appraisal 4.2 rake
+```
+
 ## Credits and license
 
 By [Morton Jonuschat](https://github.com/yabawock) under the MIT license:
