@@ -28,6 +28,7 @@ silence_stream(STDOUT) do
     create_table :posts, force: true do |t|
       t.hstore :title_i18n
       t.hstore :body_i18n
+      t.string :slug
     end
   end
 end

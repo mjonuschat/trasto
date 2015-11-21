@@ -13,40 +13,73 @@ describe Trasto::FormHelper do
   end
   include MockController
 
+  def mock_form_for(record, options = {}, &block)
+    options.merge!(as: :post, url: "/posts")
+    form_for(record, options, &block)
+  end
+
   attr_accessor :output_buffer
 
   before do
+    Post.translates :title
+    I18n.locale = :en
     @output_buffer = ""
   end
 
-  describe "#fields_for_locale" do
-    before do
-      concat(form_for(:post, url: "/posts") do |f|
-        f.fields_for_locale :de do |g|
-          # binding.pry
-          g.text_field :title
-        end
-      end)
-    end
-
-    it "sets the input name to nested locale" do
-      expect(output_buffer).to have_tag("input",
-                                        with: {name: "post[title][de]"})
-    end
-
-    it "assigns the existing field value"
-    it "works like regular rails fields"
+  let(:post) do
+    Post.new(
+      title_i18n: {en: "A marmot", fr: "Une marmotte"},
+      slug: "marmot"
+    )
   end
 
-  describe "field with locale option" do
-    it do
+  describe "#fields_for_locale" do
+    it "sets the input name to nested locale" do
+      # should also work with :post
+      concat(mock_form_for(post) do |f|
+        f.fields_for_locale :de do |g|
+          concat g.text_field :title
+          concat g.text_field :slug
+        end
+      end)
+
+      expect(output_buffer).to have_tag("input",
+                                        with: {name: "post[title][de]"})
+      expect(output_buffer).to have_tag("input",
+                                        with: {name: "post[slug]"})
+    end
+
+    it "assigns the existing field value" do
+      concat(mock_form_for(post) do |f|
+        f.fields_for_locale :fr do |g|
+          concat g.text_field :title
+          concat g.text_field :slug
+        end
+      end)
+
+      expect(output_buffer).to have_tag("input",
+                                        with: {value: post.title_i18n[:fr]})
+      expect(output_buffer).to have_tag("input",
+                                        with: {value: post.slug})
+    end
+  end
+
+  describe "#text_field" do
+    it "accepts trasto_locale option" do
       concat text_field(:post, :title, trasto_locale: 'fr')
       expect(output_buffer).to have_tag("input",
                                         with: {name: "post[title][fr]"})
     end
   end
 
-  # f.fields_for_locale
-  # Builder#fields_for_locale
-  # LocaleBuilder/g g.text_field
+  describe "without trasto" do
+    it "works" do
+      concat(mock_form_for(post) do |f|
+        f.text_field :slug
+      end)
+
+      expect(output_buffer).to have_tag("input",
+                                        with: {name: "post[slug]"})
+    end
+  end
 end

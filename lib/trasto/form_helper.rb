@@ -17,18 +17,32 @@ module Trasto::FormHelper
     end
   end
 
+  # We're subjecting all tags, everywhere to those methods.
+  #
+  # To be legit, we should probably sub-class the tags classes, but
+  # here's to ...efficiency.
   module Tags
     def render
       @trasto_locale = @options.delete(:trasto_locale)
       super
     end
 
+    # For reading
+    def value(object)
+      return unless object
+      return super unless @trasto_locale
+
+      hash = object.send "#{@method_name}_i18n"
+      hash[@trasto_locale]
+    end
+
+    # For writing
     def tag_name(*args)
-      if locale = @trasto_locale
-        super + "[#{locale}]"
-      else
-        super
-      end
+      condition =
+        (!object || object.class.translates?(@method_name)) &&
+        @trasto_locale
+
+      condition ? super + "[#{@trasto_locale}]" : super
     end
   end
 end
