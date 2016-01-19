@@ -1,13 +1,20 @@
+
 appraise "4.2" do
-  gem "activerecord", "~> 4.2.1"
+  teeny = "4.2.5"
+  gem "activerecord", "~> #{teeny}"
+  gem "actionview", "~> #{teeny}"
 end
 
 appraise "4.1" do
-  gem "activerecord", "~> 4.1.10"
+  teeny = "4.1.14"
+  gem "activerecord", "~> #{teeny}"
+  gem "actionview", "~> #{teeny}"
 end
 
 appraise "4.0" do
-  gem "activerecord", "~> 4.0.13"
+  teeny = "4.0.13"
+  gem "activerecord", "~> #{teeny}"
+  gem "actionpack", "~> #{teeny}"
 end
 
 # vim: set ft=ruby :
