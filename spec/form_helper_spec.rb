@@ -5,6 +5,7 @@ describe Trasto::FormHelper do
   include RSpecHtmlMatchers
 
   include ActionView::Helpers::FormHelper
+  include ActionView::Helpers::FormOptionsHelper
   include ActionView::Helpers::CaptureHelper
   include Trasto::FormHelper
 
@@ -62,6 +63,16 @@ describe Trasto::FormHelper do
                                         with: {value: marmot[:fr]})
       expect(output_buffer).to have_tag("input",
                                         with: {value: post.slug})
+    end
+
+    it "works with select" do
+      concat(mock_form_for(post) do |f|
+        f.fields_for_locale :fr do |g|
+          concat g.select :title, {"Un animal" => "animal", "Un mammifère" => "mammifere"}
+        end
+      end)
+
+      expect(output_buffer).to have_tag("select", with: {name: "post[title][fr]"})
     end
   end
 

@@ -2,8 +2,14 @@ module Trasto::FormHelper
   def self.included(_)
     ActionView::Helpers::FormBuilder.prepend Trasto::FormHelper::Builder
 
-    # TODO add all fields some way
-    ActionView::Helpers::Tags::TextField.prepend Trasto::FormHelper::Tags
+    [
+      ActionView::Helpers::Tags::TextField,
+      ActionView::Helpers::Tags::HiddenField,
+      ActionView::Helpers::Tags::TextArea,
+      ActionView::Helpers::Tags::Select,
+    ].map do |k|
+      k.prepend Trasto::FormHelper::Tags
+    end
   end
 
   def fields_for_locale(builder, &block)
