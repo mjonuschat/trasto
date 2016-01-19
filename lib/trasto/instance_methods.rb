@@ -1,5 +1,12 @@
 module Trasto
   module InstanceMethods
+    def read_with_locale(column, locale)
+      column_value = send("#{column}_i18n")
+      return nil unless column_value
+
+      column_value[locale.to_s]
+    end
+
     private
 
     def read_localized_value(column)
@@ -24,6 +31,15 @@ module Trasto
         when I18n.default_locale then '1'
         else locale.to_s
         end
+      end
+    end
+
+    module Rails40Reading
+      def read_with_locale(column, locale)
+        column_value = send("#{column}_i18n")
+        return nil unless column_value
+
+        column_value[locale.to_sym]
       end
     end
   end
