@@ -4,6 +4,10 @@ module Trasto
       extend Trasto::ClassMethods
       include Trasto::InstanceMethods
 
+      if ActiveRecord::VERSION::MAJOR == 4 and ActiveRecord::VERSION::MINOR == 0
+        include Trasto::InstanceMethods::Rails40Reading
+      end
+
       # Don't overwrite values if running multiple times in the same class
       # or in different classes of an inheritance chain.
       unless respond_to?(:translatable_columns)
