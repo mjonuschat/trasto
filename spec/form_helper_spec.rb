@@ -26,9 +26,10 @@ describe Trasto::FormHelper do
     @output_buffer = ""
   end
 
+  let(:marmot){ {en: "A marmot", fr: "Une marmotte"} }
   let(:post) do
     Post.new(
-      title_i18n: {en: "A marmot", fr: "Une marmotte"},
+      title_i18n: marmot,
       slug: "marmot"
     )
   end
@@ -58,7 +59,7 @@ describe Trasto::FormHelper do
       end)
 
       expect(output_buffer).to have_tag("input",
-                                        with: {value: post.title_i18n[:fr]})
+                                        with: {value: marmot[:fr]})
       expect(output_buffer).to have_tag("input",
                                         with: {value: post.slug})
     end

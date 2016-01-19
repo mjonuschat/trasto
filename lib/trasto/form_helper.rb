@@ -32,8 +32,8 @@ module Trasto::FormHelper
       return unless object
       return super unless @trasto_locale
 
-      hash = object.send "#{@method_name}_i18n"
-      hash[@trasto_locale]
+      # This method is only necessary for AR4.0
+      object.read_with_locale(@method_name, @trasto_locale)
     end
 
     # For writing
