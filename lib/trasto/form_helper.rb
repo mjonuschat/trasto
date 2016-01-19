@@ -7,6 +7,7 @@ module Trasto::FormHelper
       ActionView::Helpers::Tags::HiddenField,
       ActionView::Helpers::Tags::TextArea,
       ActionView::Helpers::Tags::Select,
+      ActionView::Helpers::Tags::Label,
     ].map do |k|
       k.prepend Trasto::FormHelper::Tags
     end
@@ -33,6 +34,8 @@ module Trasto::FormHelper
       super
     end
 
+    private
+
     # For reading
     def value(object)
       return unless object
@@ -44,11 +47,19 @@ module Trasto::FormHelper
 
     # For writing
     def tag_name(*args)
-      condition =
-        (!object || object.class.translates?(@method_name)) &&
-        @trasto_locale
+      return super unless localized?
+      super + "[#{@trasto_locale}]"
+    end
 
-      condition ? super + "[#{@trasto_locale}]" : super
+    def tag_id(*args)
+      return super unless localized?
+      super + "_#{@trasto_locale}"
+    end
+
+    # Tag is being localized if object might translate column and
+    # @trasto_locale is present
+    def localized?
+      (!object || object.class.translates?(@method_name)) && @trasto_locale
     end
   end
 end

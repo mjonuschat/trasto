@@ -40,15 +40,17 @@ describe Trasto::FormHelper do
       # should also work with :post
       concat(mock_form_for(post) do |f|
         f.fields_for_locale :de do |g|
+          concat g.label :title
           concat g.text_field :title
           concat g.text_field :slug
         end
       end)
 
+      expect(output_buffer).to have_tag("label", with: {"for" => "post_title_de"})
       expect(output_buffer).to have_tag("input",
-                                        with: {name: "post[title][de]"})
+                                        with: {name: "post[title][de]", id: "post_title_de"})
       expect(output_buffer).to have_tag("input",
-                                        with: {name: "post[slug]"})
+                                        with: {name: "post[slug]", id: "post_slug"})
     end
 
     it "assigns the existing field value" do
