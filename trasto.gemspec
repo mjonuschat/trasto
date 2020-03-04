@@ -17,10 +17,10 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(/^(test|spec|features)\//)
   gem.require_paths = ['lib']
 
-  gem.add_dependency 'pg',                        '~> 0.10'
+  gem.add_dependency 'pg'
 
   gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec',         '~> 3.0'
+  gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'appraisal'
 end
