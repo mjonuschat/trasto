@@ -12,6 +12,7 @@ end
 # https://github.com/iain/translatable_columns/
 
 require 'active_record'
+require 'silent_stream'
 require 'trasto'
 
 require 'app/post.rb'
@@ -21,7 +22,7 @@ ActiveRecord::Base.establish_connection adapter: 'postgresql', database: 'trasto
 
 I18n.enforce_available_locales = false
 
-silence_stream(STDOUT) do
+Class.new.include(SilentStream).silence_stream($stdout) do
   ActiveRecord::Schema.define(version: 0) do
     execute 'CREATE EXTENSION IF NOT EXISTS hstore'
 

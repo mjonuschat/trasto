@@ -2,14 +2,14 @@ language: ruby
 cache: bundler
 
 rvm:
-  - "2.0.0"
-  - "2.1.5"
-  - "2.2.0"
+  - "2.5.8"
+  - "2.6.6"
+  - "2.7.2"
 
 gemfile:
-  - gemfiles/4.0.gemfile
-  - gemfiles/4.1.gemfile
-  - gemfiles/4.2.gemfile
+  - gemfiles/6.1.gemfile
+  - gemfiles/6.0.gemfile
+  - gemfiles/5.2.gemfile
 
 before_script:
   - psql -c 'create database "trasto-test";' -U postgres
