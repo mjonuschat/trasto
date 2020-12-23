@@ -21,6 +21,7 @@ ActiveRecord::Base.establish_connection adapter: 'postgresql', database: 'trasto
 
 I18n.enforce_available_locales = false
 
+silence_stream(STDOUT) do
   ActiveRecord::Schema.define(version: 0) do
     execute 'CREATE EXTENSION IF NOT EXISTS hstore'
 
@@ -29,5 +30,6 @@ I18n.enforce_available_locales = false
       t.hstore :body_i18n
     end
   end
+end
 
 I18n.load_path << 'spec/app/de.yml'
