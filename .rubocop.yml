@@ -1,5 +1,16 @@
-LineLength:
-  Max: 132
+AllCops:
+  NewCops: enable
 
-Documentation:
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+    - 'spec/**/*.rb'
+
+Layout/LineLength:
+  Exclude:
+    - '*.gemspec'
+
+Style/Documentation:
   Enabled: false

@@ -1,7 +1,6 @@
 *.sassc
 .sass-cache
 capybara-*.html
-.rspec
 **.orig
 rerun.txt
 pickle-email-*.html

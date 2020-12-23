@@ -1,8 +1,6 @@
-require 'spec_helper'
-require 'trasto'
+# frozen_string_literal: true
 
 describe ActiveRecord::Base, '.translates' do
-
   it 'should be available' do
     expect(Post).to respond_to :translates
   end
@@ -27,11 +25,21 @@ describe ActiveRecord::Base, '.translates' do
     expect(Post.new).to respond_to :title
     expect(Post.new).not_to respond_to :body
   end
+end
 
+describe ActiveRecord::Base, '.translates?' do
+  it 'inherits columns from the superclass' do
+    Post.translates :title
+    SubPost.translates :body
+
+    expect(SubPost.translates?(:title)).to be true
+    expect(SubPost.translates?(:body)).to be true
+    expect(Post.translates?(:title)).to be true
+    expect(Post.translates?(:body)).to be false
+  end
 end
 
 describe Post, '.translatable_columns' do
-
   before do
     Post.translates :title
   end
@@ -39,11 +47,9 @@ describe Post, '.translatable_columns' do
   it 'should list the translatable columns' do
     expect(Post.translatable_columns).to eq([:title])
   end
-
 end
 
 describe Post, '#title' do
-
   let(:post) { Post.new(title_i18n: { de: 'Hallo', en: 'Hello', sv: 'Hej' }) }
 
   before do
@@ -88,7 +94,6 @@ describe Post, '#title' do
 end
 
 describe Post, '#title=' do
-
   before do
     Post.translates :title
     I18n.locale = :de
@@ -101,5 +106,4 @@ describe Post, '#title=' do
     expect(post.title).to eq('Hallo')
     expect(post.title_i18n['de']).to eq('Hallo')
   end
-
 end

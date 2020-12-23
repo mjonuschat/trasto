@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/yabawock/trasto.png)](http://travis-ci.org/yabawock/trasto)
 
-Translatable columns for Rails 3, directly stored in a postgres hstore in the model table.
+Translatable columns for Rails 4, directly stored in a postgres hstore in the model table.
 
 Inspired by Barsoom's [traco](https://github.com/barsoom/traco/).
 
@@ -14,24 +14,28 @@ Say you want `Post#title` and `Post#body` to support both English and Swedish va
 
 Write a migration to get hstore database columns with i18n suffixes, e.g. `title_i18n` and `body_i18n`, like:
 
-    class CreatePosts < ActiveRecord::Migration
-      def change
-        create_table :posts do |t|
-          t.hstore :title_i18n
-          t.hstore :body_i18n
+```ruby
+class CreatePosts < ActiveRecord::Migration
+  def change
+    create_table :posts do |t|
+      t.hstore :title_i18n
+      t.hstore :body_i18n
 
-          t.timestamps
-        end
-      end
+      t.timestamps
     end
+  end
+end
+```
 
 Don't create `title` or `body` columns without the `_i18n` suffix, Trasto will define a method with that name.
 
 Declare these columns in the model:
 
-    class Post < ActiveRecord::Base
-      translates :title, :body
-    end
+```ruby
+class Post < ActiveRecord::Base
+  translates :title, :body
+end
+```
 
 You can still use your accessors for `title_i18n` and `title_i18=` in forms, validations and other code, but you also get:
 
@@ -43,31 +47,40 @@ You can still use your accessors for `title_i18n` and `title_i18=` in forms, val
 
 ## Installation
 
-Add this to your `Gemfile` if you use Bundler 1.1+:
+Add this to your `Gemfile`:
 
-    gem 'trasto'
+```ruby
+  gem 'trasto'
+```
 
-If you're using Rails 3, add the following gem:
+You might need to enable the hstore extension for your database. Create a migration containing the necessary instruction:
 
-    gem 'activerecord-postgres-hstore'
-
-Hstore support comes out of the box in Rails 4. Then run
-
-    bundle install
-
-to install it.
-
+```ruby
+class EnableHstore < ActiveRecord::Migration
+  def change
+    enable_extension 'hstore'
+  end
+end
+```
 
 ## Running the tests
 
-    bundle
-    rake
+```
+    bundle exec appraisal install
+    bundle exec appraisal rake
+```
+
+To run only one appraisal/gemfile:
+
+```
+bundle exec appraisal 4.2 rake
+```
 
 ## Credits and license
 
 By [Morton Jonuschat](https://github.com/yabawock) under the MIT license:
 
->  Copyright (c) 2012-2014 Morton Jonuschat
+>  Copyright (c) 2012-2015 Morton Jonuschat
 >
 >  Permission is hereby granted, free of charge, to any person obtaining a copy
 >  of this software and associated documentation files (the "Software"), to deal
