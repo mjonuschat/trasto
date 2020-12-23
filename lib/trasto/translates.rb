@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Trasto
   module Translates
     def translates(*columns)
@@ -30,4 +32,4 @@ module Trasto
   end
 end
 
-ActiveRecord::Base.send :extend, Trasto::Translates
+ActiveRecord::Base.extend Trasto::Translates

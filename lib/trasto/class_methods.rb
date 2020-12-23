@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Trasto
   module ClassMethods
     def translates?(column)
