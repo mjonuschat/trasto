@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.configure do |config|
   # Clear class state before each spec.
   config.before(:each) do
@@ -15,7 +17,7 @@ require 'active_record'
 require 'silent_stream'
 require 'trasto'
 
-require 'app/post.rb'
+require 'app/post'
 require 'pry'
 
 ActiveRecord::Base.establish_connection adapter: 'postgresql', database: 'trasto-test'
