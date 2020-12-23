@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
   gem.description   = 'Translatable columns for Rails 4, directly stored in a Postgres hstore in the model table.'
   gem.summary       = 'Use PostgreSQL hstore to keep column translations in the model table without adding lots of tables/columns.'
   gem.homepage      = 'https://github.com/yabawock/trasto'
+  gem.licenses      = ['MIT']
 
   gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
