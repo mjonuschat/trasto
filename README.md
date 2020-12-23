@@ -1,6 +1,6 @@
 # Trasto
 
-[![Build Status](https://secure.travis-ci.org/yabawock/trasto.png)](http://travis-ci.org/yabawock/trasto)
+[![Build Status](https://secure.travis-ci.org/mjonuschat/trasto.png)](https://travis-ci.org/mjonuschat/trasto)
 
 Translatable columns for Rails 4, directly stored in a postgres hstore in the model table.
 
