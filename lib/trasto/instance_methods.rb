@@ -22,8 +22,9 @@ module Trasto
     def locales_for_reading_column(column)
       send("#{column}_i18n").keys.sort_by do |locale|
         case locale.to_sym
-        when I18n.locale then '0'
-        when I18n.default_locale then '1'
+        when Trasto.locale        then '0'
+        when I18n.locale          then '1'
+        when I18n.default_locale  then '2'
         else locale.to_s
         end
       end
